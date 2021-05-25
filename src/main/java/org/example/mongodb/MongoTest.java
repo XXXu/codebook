@@ -13,6 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MongoTest {
+    public static MongoClient getClient() {
+        List<ServerAddress> adds = new ArrayList<>();
+        //ServerAddress()两个参数分别为 服务器地址 和 端口
+        ServerAddress serverAddress1 = new ServerAddress("10.40.80.156", 27017);
+        ServerAddress serverAddress2 = new ServerAddress("10.40.80.157", 27017);
+        ServerAddress serverAddress3 = new ServerAddress("10.40.80.158", 27017);
+        adds.add(serverAddress1);
+        adds.add(serverAddress2);
+        adds.add(serverAddress3);
+
+        //通过连接认证获取MongoDB连接
+        return new MongoClient(adds);
+    }
+
     public static MongoDatabase getConnectionDB(String dbname, String username, String passwd) {
         List<ServerAddress> adds = new ArrayList<>();
         //ServerAddress()两个参数分别为 服务器地址 和 端口

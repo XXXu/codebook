@@ -1,0 +1,13 @@
+[Unit]
+Description=MongoDB Cluster Config Server
+Documentation=https://docs.mongodb.org/manual
+After=network.target
+
+[Service]
+User=root
+Group=root
+ExecStart=/opt/transwarp-mongodb/mongo_config.sh start
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
