@@ -54,7 +54,15 @@
    
    c8913b8c740293a07c10f627258e2392  transwarp-mongodb-4.2.14-new.tar.gz
 
-   
+2. 禁用hugepage
+ ```
+   cat /sys/kernel/mm/transparent_hugepage/enabled
+   always madvise [never]
+       
+       如果不是never，则使用如下命令禁用：
+       echo never > /sys/kernel/mm/transparent_hugepage/defrag
+ ```
+    
 
 2. 创建相关目录，四个节点都要执行：
 

@@ -16,9 +16,9 @@ public class MongoTest {
     public static MongoClient getClient() {
         List<ServerAddress> adds = new ArrayList<>();
         //ServerAddress()两个参数分别为 服务器地址 和 端口
-        ServerAddress serverAddress1 = new ServerAddress("10.40.80.156", 27017);
-        ServerAddress serverAddress2 = new ServerAddress("10.40.80.157", 27017);
-        ServerAddress serverAddress3 = new ServerAddress("10.40.80.158", 27017);
+        ServerAddress serverAddress1 = new ServerAddress("172.22.33.33", 27017);
+        ServerAddress serverAddress2 = new ServerAddress("172.22.33.34", 27017);
+        ServerAddress serverAddress3 = new ServerAddress("172.22.33.35", 27017);
         adds.add(serverAddress1);
         adds.add(serverAddress2);
         adds.add(serverAddress3);
@@ -30,9 +30,9 @@ public class MongoTest {
     public static MongoDatabase getConnectionDB(String dbname, String username, String passwd) {
         List<ServerAddress> adds = new ArrayList<>();
         //ServerAddress()两个参数分别为 服务器地址 和 端口
-        ServerAddress serverAddress1 = new ServerAddress("10.40.80.156", 27017);
-        ServerAddress serverAddress2 = new ServerAddress("10.40.80.157", 27017);
-        ServerAddress serverAddress3 = new ServerAddress("10.40.80.158", 27017);
+        ServerAddress serverAddress1 = new ServerAddress("172.22.33.33", 27017);
+        ServerAddress serverAddress2 = new ServerAddress("172.22.33.34", 27017);
+        ServerAddress serverAddress3 = new ServerAddress("172.22.33.35", 27017);
         adds.add(serverAddress1);
         adds.add(serverAddress2);
         adds.add(serverAddress3);
@@ -59,6 +59,24 @@ public class MongoTest {
                 .append("age", 18);
 
         col1.insertOne(document);
+    }
+
+    public static void insertManyDoc() {
+        MongoDatabase mongoDatabase = getConnectionDB("testdb", "test01", "123456");
+        MongoCollection<Document> col1 = mongoDatabase.getCollection("col2");
+        //创建文档
+
+
+        List<Document> documents = new ArrayList<>();
+        for (int i = 0; i < 1000000; i++) {
+            Document document = new Document("name", "张三按时间低级阶段你经常那啊飒飒飒飒顺丰到付到付就拿出" + i)
+                    .append("sex", "男祭祀急急急时代拒绝北京出版社八点半上班" + i)
+                    .append("age", i);
+            documents.add(document);
+        }
+
+        col1.insertMany(documents);
+
     }
 
     public static void deleteDoc() {
@@ -88,6 +106,7 @@ public class MongoTest {
         // 不通过认证连接mongoDB服务
 //        MongoClient mongoClient = new MongoClient("localhost", 27017);
 //        insertDoc();
-        findDoc();
+//        findDoc();
+        insertManyDoc();
     }
 }
