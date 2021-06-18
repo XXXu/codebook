@@ -25,6 +25,8 @@ hbase hbck是hbase自带的一项非常实用的工具，很多hbase中出现的
     相当于-fixAssignments -fixMeta -fixHdfsHoles -fixHdfsOrphans -fixHdfsOverlaps -fixVersionFile -sidelineBigOverlaps。如前所述，-repair 打开所有的修复选项，相当于-fixAssignments -fixMeta -fixHdfsHoles -fixHdfsOrphans -fixHdfsOverlaps -fixVersionFile -sidelineBigOverlaps   
 * -repairHoles
     相当于-fixAssignments -fixMeta -fixHdfsHoles -fixHdfsOrphans 
+* -fixReferenceFiles
+    修复子region有父region的reference文件
 示例情景：
 Q：缺失hbase.version文件
 A：加上选项 -fixVersionFile 解决
