@@ -1,4 +1,4 @@
-package org.example.poj.prob1321;
+package org.example.poj.prob.prob1321;
 
 import java.util.Scanner;
 

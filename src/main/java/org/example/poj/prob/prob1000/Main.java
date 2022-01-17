@@ -1,5 +1,5 @@
 // 不能加包名
-package org.example.poj.prob1000;
+package org.example.poj.prob.prob1000;
 
 import java.util.HashMap;
 import java.util.Map;
