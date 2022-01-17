@@ -1,6 +1,8 @@
+package org.example.poj.algorithm.base;
+
 import java.util.*;
 
-public class star {
+public class Star {
 
     interface Strategy {
         int calcu(Pos current, Pos next);
@@ -87,7 +89,7 @@ public class star {
                 {14,23,22,21,8},
                 {13,12,11,10,9}
         };
-        star s = new star();
+        Star s = new Star();
         Pos start = new Pos(2, 2);
         Pos end = new Pos(0, 0);
         List<Pos> path = s.astar(start, end, (current, next) -> {
@@ -119,6 +121,6 @@ public class star {
 //            System.out.println(path.get(i).pos());
 //        }
 
-        star.skyboarding();
+        Star.skyboarding();
     }
 }
