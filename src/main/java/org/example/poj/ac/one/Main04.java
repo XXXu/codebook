@@ -1,4 +1,4 @@
-package org.example.poj.algorithm.ac;
+package org.example.poj.ac.one;
 
 import java.io.BufferedReader;
 import java.io.IOException;

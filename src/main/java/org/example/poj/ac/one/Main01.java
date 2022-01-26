@@ -1,4 +1,4 @@
-package org.example.poj.algorithm.ac;
+package org.example.poj.ac.one;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,16 +10,14 @@ public class Main01 {
         int blen = b.length;
         int count = 0;
         for (int i = 0; i < blen; i++) {
+            count++;
             int k = b[i][0];
             int v = b[i][1];
             if (a[k] == 0 || a[v] == 0) {
-                a[k] = 0;
-                a[v] = 0;
-            } else {
-                a[k] = 0;
-                a[v] = 0;
-                count++;
+                count--;
             }
+            a[k] = 0;
+            a[v] = 0;
         }
         for (int i = 0; i < a.length; i++) {
             count = count + a[i];
@@ -51,6 +49,5 @@ public class Main01 {
             }
         }
         System.out.println(action(a, b));
-
     }
 }
