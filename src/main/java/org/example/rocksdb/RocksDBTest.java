@@ -1,11 +1,17 @@
 package org.example.rocksdb;
 
+import org.apache.htrace.fasterxml.jackson.databind.ObjectMapper;
 import org.rocksdb.*;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 public class RocksDBTest {
-    private static final String rocksdb_path = "/root/rocksdata";
+//    private static final String rocksdb_path = "/root/rocksdata";
+    private static final String rocksdb_path = "/root/rocksdata/fsimage";
     private static final String rocksdb_backup_path = "/root/backuprocksdata";
     private static final String rocksdb_checkpoint_path = "/root/checkpointrocksdata";
 
@@ -24,9 +30,9 @@ public class RocksDBTest {
         }
     }
 
-    public static void main(String[] args) throws RocksDBException {
+    public static void main(String[] args) throws RocksDBException, IOException {
 //        putData("xuqw","komaqws");
-        getData("koma1");
+        getData("fsimage");
 //        backup();
 //        checkpoint();
 //        readBackup();
@@ -175,9 +181,12 @@ public class RocksDBTest {
         backupEngine.close();
     }
 
-    public static void getData(String key) throws RocksDBException {
+    public static void getData(String key) throws RocksDBException, IOException {
         byte[] bytes = rocksDB.get(key.getBytes());
-        System.out.println(new String(bytes));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(new File("/root/fsimage622/json/fsimagejson.txt")));
+        writer.write(new String(bytes));
+        writer.newLine();
+        writer.close();
     }
 
     /*public static void printAllData() {
