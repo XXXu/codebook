@@ -20,6 +20,6 @@
 
   <property>
     <name>dfs.namenode.name.dir</name>
-    <value>file:///root/fsimage622/new</value>
+    <value>file:///root/fsimage/jiujiu70/new</value>
   </property>
 </configuration>
