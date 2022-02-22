@@ -228,3 +228,169 @@ class ScheduledThreadDemo implements Runnable{
 
 **总结：**
 不要使用Timer，要用ScheduledThreadPoolExecutor
+
+## UncaughtExceptionHandler
+
+单线程的程序发生一个未捕获的异常时我们可以采用try….catch进行异常的捕获，但是在多线程环境中，线程抛出的异常是不能用try….catch捕获的，这样就有可能导致一些问题的出现，比如异常的时候无法回收一些系统资源，或者没有关闭当前的连接等。
+```
+public class ThreadDemo {
+    public static void main(String[] args) {
+        try {
+            Thread thread = new Thread(new Task());
+            thread.start();
+        } catch (Exception e) {
+            System.out.println("exception: " + e.getMessage());
+        }
+    }
+}
+
+class Task implements Runnable {
+    @Override
+    public void run() {
+        System.out.println(10 / 2);
+        System.out.println(10 / 0);
+        System.out.println(10 / 1);
+    }
+}
+```
+结果：
+```
+5
+Exception in thread "Thread-0" java.lang.ArithmeticException: / by zero
+    at com.koma.demo.Task.run(ThreadDemo.java:22)
+    at java.lang.Thread.run(Unknown Source)
+```
+这个时候api提供的UncaughtExceptionHandler接口就派上用场了。
+
+```
+public class CaughtThread {
+    public static void main(String args[]) {
+        Thread thread = new Thread(new Task());
+        // 设置异常处理的hanlder
+        thread.setUncaughtExceptionHandler(new ExceptionHandler());
+        thread.start();
+    }
+}
+
+class ExceptionHandler implements UncaughtExceptionHandler {
+    @Override
+    public void uncaughtException(Thread t, Throwable e) {
+        System.out.println("exception: " + e.getMessage());
+    }
+}
+```
+
+Thread还有一个默认的静态方法setDefaultUncaughtExceptionHandler，所有的线程默认的异常处理hanlder。
+```
+import java.lang.Thread.UncaughtExceptionHandler;
+
+public class CaughtThread {
+    public static void main(String args[]) {
+        // Thread提供的静态方法，为所有的Thread提供默认的异常处理
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler());
+        Thread thread = new Thread(new Task());
+        // 设置异常处理的hanlder
+        // thread.setUncaughtExceptionHandler(new ExceptionHandler());
+        thread.start();
+    }
+}
+
+class ExceptionHandler implements UncaughtExceptionHandler {
+    @Override
+    public void uncaughtException(Thread t, Throwable e) {
+        System.out.println("exception: " + e.getMessage());
+    }
+}
+```
+如果采用线程池通过execute的方法去捕获异常，还按照在外部设置hanlder处理，这样行吗？
+```
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ExecuteThread {
+    public static void main(String[] args) {
+        ExecutorService exec = Executors.newCachedThreadPool();
+        Thread thread = new Thread(new ThreadPoolTask());
+        thread.setUncaughtExceptionHandler(new ExceptionHandler());
+        exec.execute(thread);
+        exec.shutdown();
+    }
+}
+
+class ThreadPoolTask implements Runnable {
+    @Override
+    public void run() {
+        System.out.println(10 / 2);
+        System.out.println(10 / 0);
+        System.out.println(10 / 1);
+    }
+}
+```
+
+结果：
+```
+5
+Exception in thread "pool-1-thread-1" java.lang.ArithmeticException: / by zero
+    at com.koma.demo.ThreadPoolTask.run(ExecuteThread.java:24)
+    at java.lang.Thread.run(Unknown Source)
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+    at java.lang.Thread.run(Unknown Source)
+```
+由此可见，在外部设置是不行的，必须Runable中设置才行。
+
+```
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ExecuteThread {
+    public static void main(String[] args) {
+        ExecutorService exec = Executors.newCachedThreadPool();
+        Thread thread = new Thread(new ThreadPoolTask());
+        exec.execute(thread);
+        exec.shutdown();
+    }
+}
+
+class ThreadPoolTask implements Runnable {
+    @Override
+    public void run() {
+        Thread.currentThread().setUncaughtExceptionHandler(new ExceptionHandler());
+        System.out.println(10 / 2);
+        System.out.println(10 / 0);
+        System.out.println(10 / 1);
+    }
+}
+```
+结果：
+```
+5
+exception: / by zero
+```
+
+前面是通过execute提交任务的，如果通过submit提交的任务，无论是抛出的未检测异常还是已检查异常，都将被认为是任务返回状态的一部分。如果一个由submit提交的任务由于抛出了异常而结束，那么这个异常将被Future.get封装在ExecutionException中重新抛出。
+
+```
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+public class SubmitThread {
+    public static void main(String[] args) {
+        ExecutorService exec = Executors.newCachedThreadPool();
+        Future<?> future = exec.submit(new Task());
+        exec.shutdown();
+        try {
+            future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            System.out.println("exception: " + e);
+        }
+    }
+}
+```
+结果：
+```
+5
+exception: java.util.concurrent.ExecutionException: java.lang.ArithmeticException: / by zero
+```
