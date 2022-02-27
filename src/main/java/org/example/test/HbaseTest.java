@@ -1,5 +1,4 @@
-package org.example.test;/*
-package org.example.transwarp;
+package org.example.test;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
@@ -35,13 +34,13 @@ public class HbaseTest {
     private static Configuration conf;
     private static final String ZK_QUORUM = "hbase.zookeeper.quorum";
     private static final String ZK_CLIENT_PORT = "hbase.zookeeper.property.clientPort";
-//    private static final String ZK_POS = "tdh620-7:2181,tdh620-8:2181,tdh620-9:2181";
-    private static final String ZK_POS = "node01:2181,node03:2181,node04:2181";
+    private static final String ZK_POS = "jiujiu-tdh-70:2181,jiujiu-tdh-71:2181,jiujiu-tdh-72:2181";
+//    private static final String ZK_POS = "node01:2181,node03:2181,node04:2181";
     private static final String ZK_PORT_VALUE = "2181";
 
     static {
         conf = HBaseConfiguration.create();
-        conf.addResource(new Path("./conf/hbase-site.xml"));
+        conf.addResource(new Path("./conf2/hbase-site.xml"));
         conf.set(ZK_QUORUM, ZK_POS);
         conf.set(ZK_CLIENT_PORT, ZK_PORT_VALUE);
         //创建连接池
@@ -113,20 +112,25 @@ public class HbaseTest {
         Scan scan = new Scan();
         scan.setReversed(false);
 
-        byte[] row = null;
-        String s = null;
+//        byte[] row = null;
+//        String s = null;
 
         ResultScanner resultScanner = table.getScanner(scan);
         for (Result result : resultScanner) {
             for (Cell cell : result.rawCells()) {
-                row=cell.getRow();
-                s = new String(row);
-                System.out.println(new String(row));
+                String row = new String(CellUtil.cloneRow(cell));
+                String family = new String(CellUtil.cloneFamily(cell));
+                String Qualifier = new String(CellUtil.cloneQualifier(cell));
+                String value = new String(CellUtil.cloneValue(cell));
+                System.out.println("row: " + row + " family: " + family + " Qualifier: "+Qualifier +" value: " + value);
+//                row=cell.getRow();
+//                s = new String(row);
+//                System.out.println(new String(row));
             }
             System.out.println("----------------------");
         }
 
-        Get get = new Get(s.getBytes());
+        /*Get get = new Get(s.getBytes());
 
         Result result1 = table.get(get);
         System.out.println("size: "+result1.size());
@@ -135,9 +139,7 @@ public class HbaseTest {
             System.out.println(new String(row));
             System.out.println(new String(CellUtil.cloneRow(cell)));
         }
-        System.out.println("----------------------");
-
-
+        System.out.println("----------------------");*/
 
         table.close();
         conn.close();
@@ -152,7 +154,7 @@ public class HbaseTest {
         conn.close();
     }
 
-    public static HyperbaseMetadata getHyperbaseMeta(Configuration conf, TableName tableName) throws Exception {
+    /*public static HyperbaseMetadata getHyperbaseMeta(Configuration conf, TableName tableName) throws Exception {
         ZooKeeperWatcher zkw = new ZooKeeperWatcher(conf, "HyperbaseAdmin", null);
         HyperbaseMetadataZookeeper zookeeper = new HyperbaseMetadataZookeeper(zkw);
         HyperbaseMetadata metadata = zookeeper.getMetadata(tableName);
@@ -169,9 +171,9 @@ public class HbaseTest {
         zkw.close();
         zookeeper.close();
         return metadata;
-    }
+    }*/
 
-    public static void getIndexRowkey(HyperbaseMetadata metadata, String indexName) throws IOException {
+    /*public static void getIndexRowkey(HyperbaseMetadata metadata, String indexName) throws IOException {
 
         SecondaryIndex index = metadata.getGlobalIndexes().get(Bytes.toBytes(indexName));
         System.out.println("indexName: " + index.toString());
@@ -188,7 +190,7 @@ public class HbaseTest {
         Get get = index.genIndexGet(Bytes.toBytes(indexRowkey), indexPut);
         System.out.println("*****");
         System.out.println(new String(get.getRow()));
-    }
+    }*/
 
     public static void truncatet(String indexName) {
 
@@ -200,13 +202,13 @@ public class HbaseTest {
 //        createTable("ttl_test111");
 //        scanData("debug_test_timeindex");
 //        getData("debug_test_timeindex","2020-12-20 22:34:34025ad219ece1125a8f5a0e74e32676cb\\x00\\x13\\x00");
-        TableName tableName = TableName.valueOf("Student");
+//        TableName tableName = TableName.valueOf("Student");
+
 //        getIndexRowkey(getHyperbaseMeta(conf, tableName), "timeindex");
 
-        scanData("Student", "0001", "0008");
+//        scanData("Student", "0001", "0008");
+        scanData("student");
 
     }
 
 }
-
-*/

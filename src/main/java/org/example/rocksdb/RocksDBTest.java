@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RocksDBTest {
 //    private static final String rocksdb_path = "/root/rocksdata";
-    private static final String rocksdb_path = "/root/rocksdata/fsimage";
+    private static final String rocksdb_path = "/root/fsimage/jiujiu70/rocksdata";
     private static final String rocksdb_backup_path = "/root/backuprocksdata";
     private static final String rocksdb_checkpoint_path = "/root/checkpointrocksdata";
 
@@ -32,7 +32,7 @@ public class RocksDBTest {
 
     public static void main(String[] args) throws RocksDBException, IOException {
 //        putData("xuqw","komaqws");
-        getData("fsimage");
+        getData("hdfsVersion");
 //        backup();
 //        checkpoint();
 //        readBackup();
@@ -183,10 +183,7 @@ public class RocksDBTest {
 
     public static void getData(String key) throws RocksDBException, IOException {
         byte[] bytes = rocksDB.get(key.getBytes());
-        BufferedWriter writer = new BufferedWriter(new FileWriter(new File("/root/fsimage622/json/fsimagejson.txt")));
-        writer.write(new String(bytes));
-        writer.newLine();
-        writer.close();
+        System.out.println(String.valueOf(bytes));
     }
 
     /*public static void printAllData() {

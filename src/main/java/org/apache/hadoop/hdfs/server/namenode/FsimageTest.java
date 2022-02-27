@@ -2,8 +2,9 @@ package org.apache.hadoop.hdfs.server.namenode;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.permission.FsAction;
+import org.apache.hadoop.fs.permission.FsPermission;
 import org.apache.hadoop.hdfs.protocol.HdfsConstants;
-import org.apache.hadoop.hdfs.tools.offlineImageViewer.OfflineImage2Rocksdb;
 import org.apache.hadoop.hdfs.tools.offlineImageViewer.OfflineImageViewerPB;
 
 import java.io.File;
@@ -56,18 +57,47 @@ public class FsimageTest {
         OfflineImageViewerPB.run(args);
     }
 
-    public static void testOfflineImageRocksdb(String[] args) throws Exception {
-        OfflineImage2Rocksdb.run(args);
-    }
-
     public static void main(String[] args) {
         try {
             testOfflineImageViewerPB(args);
-//            testOfflineImageRocksdb(args);
 //            createNewFsimage();
+            /*String per1 = "rwxr-xr-x";
+            String per2 = "rw-r---wx";
+            String per3 = "r---w-rwt";
+            String per4 = "--x---r-T";
+            System.out.println(String.format("%04o",getFsPermission(per1).toExtendedShort()));
+            System.out.println(String.format("%04o",getFsPermission(per2).toExtendedShort()));
+            System.out.println(String.format("%04o",getFsPermission(per3).toExtendedShort()));
+            System.out.println(String.format("%04o",getFsPermission(per4).toExtendedShort()));
+            System.out.println(getFsPermission(per2).toExtendedShort());
+            System.out.println(getFsPermission(per3).toExtendedShort());
+            System.out.println(getFsPermission(per4).toExtendedShort());*/
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static FsPermission getFsPermission(String permissonStr) {
+        String user = permissonStr.substring(0, 3);
+        String group = permissonStr.substring(3, 6);
+        String other = permissonStr.substring(6, 8);
+        boolean stickyBit = false;
+
+        if ("t".equals(permissonStr.substring(8))) {
+            other = other + "x";
+            stickyBit = true;
+        } else if ("T".equals(permissonStr.substring(8))) {
+            other = other + "-";
+            stickyBit = false;
+        } else {
+            other = other + permissonStr.substring(8);
+        }
+
+        FsAction ufsAction = FsAction.getFsAction(user);
+        FsAction gfsAction = FsAction.getFsAction(group);
+        FsAction ofsAction = FsAction.getFsAction(other);
+
+        return new FsPermission(ufsAction, gfsAction, ofsAction, stickyBit);
     }
 }
 
