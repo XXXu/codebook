@@ -85,6 +85,7 @@ public class FixFSImage {
 
     public static void main(String[] args) throws IOException {
         int status = run(args);
+        System.out.println("asdasd");
         System.exit(status);
     }
 }
