@@ -61,7 +61,7 @@ public class FsimageTest {
         try {
             testOfflineImageViewerPB(args);
 //            createNewFsimage();
-            String per1 = "rwxr-xr-x";
+            /*String per1 = "rwxr-xr-x";
             String per2 = "rw-r---wx";
             String per3 = "r---w-rwt";
             String per4 = "--x---r-T";
@@ -73,7 +73,7 @@ public class FsimageTest {
             System.out.println(String.format("%o",getFsPermission(per1).toExtendedShort()));
             System.out.println(String.format("%o",getFsPermission(per2).toExtendedShort()));
             System.out.println(String.format("%o",getFsPermission(per3).toExtendedShort()));
-            System.out.println(String.format("%o",getFsPermission(per4).toExtendedShort()));
+            System.out.println(String.format("%o",getFsPermission(per4).toExtendedShort()));*/
 //            System.out.println(getFsPermission(per2).toExtendedShort());
 //            System.out.println(getFsPermission(per3).toExtendedShort());
 //            System.out.println(getFsPermission(per4).toExtendedShort());
