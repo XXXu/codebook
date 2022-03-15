@@ -69,9 +69,14 @@ public class FsimageTest {
             System.out.println(String.format("%04o",getFsPermission(per2).toExtendedShort()));
             System.out.println(String.format("%04o",getFsPermission(per3).toExtendedShort()));
             System.out.println(String.format("%04o",getFsPermission(per4).toExtendedShort()));
-            System.out.println(getFsPermission(per2).toExtendedShort());
-            System.out.println(getFsPermission(per3).toExtendedShort());
-            System.out.println(getFsPermission(per4).toExtendedShort());*/
+            System.out.println("============");
+            System.out.println(String.format("%o",getFsPermission(per1).toExtendedShort()));
+            System.out.println(String.format("%o",getFsPermission(per2).toExtendedShort()));
+            System.out.println(String.format("%o",getFsPermission(per3).toExtendedShort()));
+            System.out.println(String.format("%o",getFsPermission(per4).toExtendedShort()));*/
+//            System.out.println(getFsPermission(per2).toExtendedShort());
+//            System.out.println(getFsPermission(per3).toExtendedShort());
+//            System.out.println(getFsPermission(per4).toExtendedShort());
         } catch (Exception e) {
             e.printStackTrace();
         }

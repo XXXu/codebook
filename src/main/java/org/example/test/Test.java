@@ -37,7 +37,7 @@ public class Test {
     }
 
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(new File("/root/workspace/transwarp/tdfs/target/debug/asdasd.txt")));
+        /*BufferedReader bufferedReader = new BufferedReader(new FileReader(new File("/root/workspace/transwarp/tdfs/target/debug/asdasd.txt")));
         String line = null;
         Map<Integer, Directory> map = new HashMap<>();
         while (!((line = bufferedReader.readLine()) == null)) {
@@ -61,6 +61,7 @@ public class Test {
             System.out.println(entry.getValue());
             System.out.println("========");
         }
-        bufferedReader.close();
+        bufferedReader.close();*/
+        System.out.println(2 << 14 - 1);
     }
 }
