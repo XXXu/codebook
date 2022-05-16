@@ -61,3 +61,6 @@ mvn test -Dtest=DockerNetworkPolicyHostGWTest
 
 ### manager
 > systemctl restart transwarp-manager
+
+### tdfs
+> build tdfs的时候，现在需要加一句：git submodule update --init --recursive
