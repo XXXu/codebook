@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+<property>
+    <name>dfs.datanode.address</name>
+    <value>0.0.0.0:50010</value>
+</property>
+<property>
+    <name>dfs.datanode.http.address</name>
+    <value>0.0.0.0:50075</value>
+</property>
+<property>
+    <name>dfs.datanode.ipc.address</name>
+    <value>0.0.0.0:50020</value>
+</property>
+<property>
+    <name>dfs.hosts.exclude</name>
+    <value>/etc/tdfs1/conf/exclude-list.txt</value>
+</property>
+<property>
+    <name>dfs.domain.socket.path</name>
+    <value>/var/run/tdfs1/dn_socket</value>
+</property>
+<property>
+    <name>license.zookeeper.quorum</name>
+    <value>tdh8145:2291,tdh8146:2291,tdh8147:2291</value>
+</property>
+<property>
+    <name>dfs.journalnode.edits.dir</name>
+    <value>/hadoop/journal</value>
+</property>
+<property>
+    <name>tdfs.ipc.bm.host</name>
+    <value>tdh8145</value>
+</property>
+<property>
+    <name>tdfs.ipc.bm.port</name>
+    <value>8021</value>
+</property>
+<property>
+    <name>tdfs.ipc.nm.host</name>
+    <value>tdh8145</value>
+</property>
+<property>
+    <name>tdfs.ipc.nm.port</name>
+    <value>8020</value>
+</property>
+<property>
+    <name>tdfs.log.path</name>
+    <value>/var/log/tdfs1</value>
+</property>
+<property>
+    <name>tdfs.ipc.bm.hosts</name>
+    <value>68-tdh8145:8021,69-tdh8146:8021,70-tdh8147:8021</value>
+</property>
+<property>
+    <name>dfs.nameservices</name>
+    <value>nameservice1</value>
+</property>
+<property>
+    <name>dfs.namenode.rpc-address.nameservice1.nn0</name>
+    <value>tdh8145:8020</value>
+</property>
+<property>
+    <name>dfs.namenode.servicerpc-address.nameservice1.nn0</name>
+    <value>tdh8145:8021</value>
+</property>
+<property>
+    <name>dfs.namenode.rpc-address.nameservice1.nn1</name>
+    <value>tdh8146:8020</value>
+</property>
+<property>
+    <name>dfs.namenode.servicerpc-address.nameservice1.nn1</name>
+    <value>tdh8146:8021</value>
+</property>
+<property>
+    <name>dfs.namenode.rpc-address.nameservice1.nn2</name>
+    <value>tdh8147:8020</value>
+</property>
+<property>
+    <name>dfs.namenode.servicerpc-address.nameservice1.nn2</name>
+    <value>tdh8147:8021</value>
+</property>
+<property>
+    <name>dfs.ha.namenodes.nameservice1</name>
+    <value>nn0,nn1,nn2</value>
+</property>
+<property>
+    <name>dfs.client.failover.proxy.provider.nameservice1</name>
+    <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+</property>
+<property>
+    <name>dfs.ha.automatic-failover.enabled.nameservice1</name>
+    <value>true</value>
+</property>
+<property>
+    <name>dfs.permissions.superusergroup</name>
+    <value>hbase</value>
+</property>
+<property>
+    <name>dfs.client.socket-timeout</name>
+    <value>120000</value>
+</property>
+<property>
+    <name>dfs.datanode.data.dir.perm</name>
+    <value>755</value>
+</property>
+<property>
+    <name>dfs.datanode.du.reserved</name>
+    <value>42928492544</value>
+</property>
+<property>
+    <name>dfs.data.transfer.protection</name>
+    <value>authentication</value>
+</property>
+<property>
+    <name>dfs.client.read.shortcircuit</name>
+    <value>true</value>
+</property>
+<property>
+    <name>dfs.namenode.name.dir</name>
+    <value>/vdir/mnt/disk1/tdfs/namenode_dir</value>
+</property>
+<property>
+    <name>dfs.datanode.handler.count</name>
+    <value>30</value>
+</property>
+<property>
+    <name>dfs.datanode.failed.volumes.tolerated</name>
+    <value>0</value>
+</property>
+<property>
+    <name>dfs.datanode.data.dir</name>
+    <value>/vdir/mnt/disk1/hadoop/data</value>
+</property>
+</configuration>
