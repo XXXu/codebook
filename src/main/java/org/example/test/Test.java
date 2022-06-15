@@ -57,13 +57,33 @@ public class Test {
 //        System.out.println("str: "+str);
 //        System.out.println(Long.valueOf(str));
 
-        Configuration conf = new Configuration();
+        /*Configuration conf = new Configuration();
         conf.addResource(new Path("./conf/core-site.xml"));
         conf.addResource(new Path("./conf/hdfs-site.xml"));
         conf.set("dfs.ha.automatic-failover.enabled.nameservice1", "true");
 
         boolean aBoolean = conf.getBoolean("dfs.ha.automatic-failover.enabled", false);
-        System.out.println("automatic is: " + aBoolean);
+        System.out.println("automatic is: " + aBoolean);*/
+
+//        AtomicInteger atomicInteger = new AtomicInteger(100);
+//        System.out.println(atomicInteger.getAndIncrement());
+        /*StringBuilder builder = new StringBuilder("asd");
+        StringBuilder b1 = builder;
+        b1.append("ko");
+        StringBuilder b2 = builder;
+        b2.append("qwe");
+        System.out.println("build: " + builder + ", b1: " + b1 + ", b2: " + b2);*/
+
+        /*Map<String, Boolean> map = new HashMap();
+        Boolean qwe = map.put("qwe", Boolean.TRUE);
+        System.out.println(qwe);
+        System.out.println(map.get("qwe"));
+        Boolean absent = map.putIfAbsent("asd", Boolean.FALSE);
+        System.out.println(absent);
+        System.out.println(map.putIfAbsent("asd3", Boolean.FALSE));
+        System.out.println(map.putIfAbsent("asd", Boolean.TRUE));*/
+
+        
 
     }
 }

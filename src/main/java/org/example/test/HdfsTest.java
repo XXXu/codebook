@@ -91,7 +91,7 @@ public class HdfsTest {
         Configuration conf = new HdfsConfiguration();
         conf.addResource(new Path("./conf/core-site.xml"));
         conf.addResource(new Path("./conf/hdfs-site.xml"));
-
+        
 //        conf.setInt("dfs.client.failover.connection.retries.on.timeouts", 1);
 //        conf.setInt("dfs.client.failover.connection.retries", 1);
 //        conf.setInt("dfs.client.failover.max.attempts", 3);
