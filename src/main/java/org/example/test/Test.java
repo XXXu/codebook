@@ -4,6 +4,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 
 import java.io.*;
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -83,7 +84,24 @@ public class Test {
         System.out.println(map.putIfAbsent("asd3", Boolean.FALSE));
         System.out.println(map.putIfAbsent("asd", Boolean.TRUE));*/
 
-        
+//        InetSocketAddress initialIsa = new InetSocketAddress("172.22.51.121", 60010);
+//        System.out.println("hostname is: "+ initialIsa.getHostName());
 
+//        initializeNextSession(1L);
+//        System.out.println("name is: " + Test.class.getPackage().getName());
+        Type crc32 = Type.valueOf("CRC32");
+        System.out.println(crc32.id);
+        System.out.println(crc32.size);
+    }
+
+    public static long initializeNextSession(long id) {
+        long nextSid = 0;
+//        System.out.println("System.currentTimeMillis() is : " + System.currentTimeMillis());
+//        long cutime = 1593224394000L;
+        nextSid = (System.currentTimeMillis() << 24) >>> 8;
+        System.out.println("nextSid is: " + nextSid);
+        nextSid =  nextSid | (id <<56);
+        System.out.println("nextSid is: " + nextSid);
+        return nextSid;
     }
 }
